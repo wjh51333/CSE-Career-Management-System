@@ -3,7 +3,9 @@ package Take_Course;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 //이수 목록
@@ -35,32 +37,59 @@ public class CompleteList {
 	
 
 	
-	Scanner inputStream=null;
-	String coursename=null;
-	String curriclassification=null;
-	String coursecode = null, grade = null;
-	String [][]ci =new String[10000000][4];
-	int cicount=0;
-	
+	private int yearsemester;
+	private String checktake;
+	private String score;
+	private String coursename;
+	private String coursecode;
+	private String grade;
 
 	public void addcourse() {
-		try {
-			
-            inputStream = new Scanner(new FileReader ("curriculum.txt"));
-			while (inputStream.hasNext()) {
-				curriclassification = inputStream.next();
-				coursename = inputStream.next();
-				coursecode = inputStream.next();
-				grade = inputStream.next();
-				ci[cicount][0]=curriclassification;
-				ci[cicount][1]=coursecode;
-				ci[cicount][2]=grade;
-				cicount+=1;
-			}			
-			inputStream.close();
-					
-		} catch (FileNotFoundException e) {
-            System.out.println("Error opening the file " + "curriculum.txt");
+		
+		CourseGrade cg= new CourseGrade();
+		CourseInfo ci=new CourseInfo();
+		
+		System.out.println("년도/학기");
+		Scanner keyboard = new Scanner(System.in);
+		yearsemester=cg.yearsemester;
+		yearsemester = keyboard.nextInt();
+
+
+		Scanner keyboard2 = new Scanner(System.in);
+		System.out.println("교과구분");			
+		checktake=cg.checktake;
+		checktake = keyboard2.nextLine();
+
+		System.out.println("과목명");
+		coursename=ci.coursename;
+		coursename = keyboard.nextLine();
+		
+		System.out.println("과목코드");
+		coursecode=ci.coursecode;
+		coursecode = keyboard.nextLine();
+		
+		System.out.println("학점");
+		grade=ci.grade;
+		grade = keyboard.nextLine();
+		
+		System.out.println("점수");
+		Scanner keyboard3=new Scanner(System.in);
+		score=cg.score;
+		score = keyboard3.nextLine();
+		
+
+
+        try  {
+        	PrintWriter outputStream = new PrintWriter(new FileWriter("inputcourse.txt", true));
+        	outputStream.print(yearsemester+" "+ checktake+" "+score+" "+coursename + " " + coursecode + " " + grade);
+        	outputStream.close();
+        }
+        catch(FileNotFoundException e) {
+            System.out.println("Error opening the file " + "inputcourse");
+            System.exit(0);
+        }
+        catch (IOException e) {
+        	System.out.println("Error opening the file " + "inputcourse");
             System.exit(0);
 		}
 	}
