@@ -1,6 +1,8 @@
 package Take_Course;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -21,16 +23,155 @@ public class CompleteList {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		CompleteList cl=new CompleteList();
+		cl.calgrade();
+	}
+	
 
-	}
-	
-	public void checkrepeat() {
-		
-		
-	}
-	
 
 	public void calgrade() {
+		
+		 
+        int count=0, i;
+        String arr[]=new String[6000000];
+		try {
+			Scanner scan = new Scanner(new FileReader(new File("data.txt")));
+		        while(scan.hasNext()){
+		        	arr[count]=scan.next();
+		            count++;
+		            
+		        }
+		        
+		        for(i=0; i<count; i++) {
+		        		if (arr[i].equals("공학전공")) {
+		        			try {
+		        				PrintWriter outputStream = new PrintWriter(new FileWriter("공학전공.txt", true));
+		        				outputStream.println(arr[i+4]);
+		        				outputStream.close();
+		        			} catch (IOException e) {
+		        				System.out.println("fail open file");
+		        				System.exit(0);
+		        			}
+		        		}
+		        		if (arr[i].equals("기본소양")) {
+		        			try {
+		        				PrintWriter outputStream = new PrintWriter(new FileWriter("기본소양.txt", true));
+		        				outputStream.println(arr[i+4]);
+		        				outputStream.close();
+		        			} catch (IOException e) {
+		        				System.out.println("fail open file");
+		        				System.exit(0);
+		        			}
+		        		}
+		        		if (arr[i].equals("전공기반")) {
+		        			try {
+		        				PrintWriter outputStream = new PrintWriter(new FileWriter("전공기반.txt", true));
+		        				outputStream.println(arr[i+4]);
+		        				outputStream.close();
+		        			} catch (IOException e) {
+		        				System.out.println("fail open file");
+		        				System.exit(0);
+		        			}
+		        		}
+		        		if (arr[i].equals("교양")) {
+		        			try {
+		        				PrintWriter outputStream = new PrintWriter(new FileWriter("교양.txt", true));
+		        				outputStream.println(arr[i+4]);
+		        				outputStream.close();
+		        			} catch (IOException e) {
+		        				System.out.println("fail open file");
+		        				System.exit(0);
+		        			}
+		        		}
+		        		
+		        	}
+		        
+		        scan.close();
+
+		    
+		} catch (FileNotFoundException e) {
+			System.out.println("fail open file");
+			System.exit(0);
+		}
+		
+		
+		Scanner inputStream=null;
+        try {
+            inputStream = new Scanner(new FileInputStream("공학전공.txt"));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error opening the file " + "공학전공");
+            System.exit(0);
+        }
+		
+	
+		int next;
+		int sum=0;
+		
+		while (inputStream.hasNextInt()) {
+			next = inputStream.nextInt( );
+			enginmajor+=next;
+	    }
+		
+		inputStream.close();
+		
+		try {
+            inputStream = new Scanner(new FileInputStream("전공기반.txt"));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error opening the file " + "전공기반");
+            System.exit(0);
+        }
+		
+		sum=0;
+		
+		while (inputStream.hasNextInt()) {
+			next = inputStream.nextInt( );
+			majorbase+=next;
+	    }
+		
+		inputStream.close();
+		
+		try {
+            inputStream = new Scanner(new FileInputStream("기본소양.txt"));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error opening the file " + "기본소양");
+            System.exit(0);
+        }
+		
+		sum=0;
+		
+		while (inputStream.hasNextInt()) {
+			next = inputStream.nextInt( );
+			basicrefine+=next;
+	    }
+		
+		inputStream.close();
+		
+		try {
+            inputStream = new Scanner(new FileInputStream("교양.txt"));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error opening the file " + "교양");
+            System.exit(0);
+        }
+
+		sum=0;
+		
+		while (inputStream.hasNextInt()) {
+			next = inputStream.nextInt( );
+			refinegrade+=next;
+	    }
+		
+		inputStream.close();
+		
+		majorgrade=basicrefine+majorbase+enginmajor;
+		totalgrade=majorgrade+refinegrade;
 		
 		
 	}
