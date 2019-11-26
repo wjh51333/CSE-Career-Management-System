@@ -168,7 +168,6 @@ public class CompleteList {
 
 
 
-
 	public void calgrade() {
 		
 		 
@@ -180,11 +179,23 @@ public class CompleteList {
 		        	arr[count]=scan.next();
 		            count++;
 		            
+		            
 		        }
 		        
+		        
+				File file=new File("공학전공.txt");
+				file.delete();
+				File file2=new File("기본소양.txt");
+				file2.delete();
+				File file3=new File("전공기반.txt");
+				file3.delete();
+				File file4=new File("교양.txt");
+				file4.delete();
+				
 		        for(i=0; i<count; i++) {
 		        		if (arr[i].equals("공학전공")) {
 		        			try {
+	
 		        				PrintWriter outputStream = new PrintWriter(new FileWriter("공학전공.txt", true));
 		        				outputStream.println(arr[i+4]);
 		        				outputStream.close();
@@ -195,9 +206,10 @@ public class CompleteList {
 		        		}
 		        		if (arr[i].equals("기본소양")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("기본소양.txt", true));
-		        				outputStream.println(arr[i+4]);
-		        				outputStream.close();
+
+		        				PrintWriter outputStream2 = new PrintWriter(new FileWriter("기본소양.txt", true));
+		        				outputStream2.println(arr[i+4]);
+		        				outputStream2.close();
 		        			} catch (IOException e) {
 		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
@@ -205,9 +217,9 @@ public class CompleteList {
 		        		}
 		        		if (arr[i].equals("전공기반")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("전공기반.txt", true));
-		        				outputStream.println(arr[i+4]);
-		        				outputStream.close();
+		        				PrintWriter outputStream3 = new PrintWriter(new FileWriter("전공기반.txt", true));
+		        				outputStream3.println(arr[i+4]);
+		        				outputStream3.close();
 		        			} catch (IOException e) {
 		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
@@ -215,9 +227,11 @@ public class CompleteList {
 		        		}
 		        		if (arr[i].equals("교양")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("교양.txt", true));
-		        				outputStream.println(arr[i+4]);
-		        				outputStream.close();
+
+		        				
+		        				PrintWriter outputStream4 = new PrintWriter(new FileWriter("교양.txt", true));
+		        				outputStream4.println(arr[i+4]);
+		        				outputStream4.close();
 		        			} catch (IOException e) {
 		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
@@ -234,10 +248,18 @@ public class CompleteList {
 			System.exit(0);
 		}
 		
-		
+		int next;
+		int sum=0;
 		Scanner inputStream=null;
         try {
             inputStream = new Scanner(new FileInputStream("공학전공.txt"));
+
+    		sum=0;
+    		while (inputStream.hasNextInt()) {
+    			next = inputStream.nextInt( );
+    			enginmajor+=next;
+    	    }
+    		inputStream.close();
         }
         catch(FileNotFoundException e)
         {
@@ -246,18 +268,19 @@ public class CompleteList {
         }
 		
 	
-		int next;
-		int sum=0;
+
 		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			enginmajor+=next;
-	    }
-		
-		inputStream.close();
-		
+		Scanner inputStream2=null;
 		try {
-            inputStream = new Scanner(new FileInputStream("전공기반.txt"));
+            inputStream2 = new Scanner(new FileInputStream("전공기반.txt"));
+    		sum=0;
+    		
+    		while (inputStream2.hasNextInt()) {
+    			next = inputStream2.nextInt( );
+    			majorbase+=next;
+    	    }
+    		
+    		inputStream2.close();
         }
         catch(FileNotFoundException e)
         {
@@ -265,17 +288,19 @@ public class CompleteList {
             System.exit(0);
         }
 		
-		sum=0;
+
 		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			majorbase+=next;
-	    }
-		
-		inputStream.close();
-		
+		Scanner inputStream3=null;
 		try {
-            inputStream = new Scanner(new FileInputStream("기본소양.txt"));
+            inputStream3 = new Scanner(new FileInputStream("기본소양.txt"));
+    		sum=0;
+    		
+    		while (inputStream3.hasNextInt()) {
+    			next = inputStream3.nextInt( );
+    			basicrefine+=next;
+    	    }
+    		
+    		inputStream3.close();
         }
         catch(FileNotFoundException e)
         {
@@ -283,17 +308,19 @@ public class CompleteList {
             System.exit(0);
         }
 		
-		sum=0;
+
 		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			basicrefine+=next;
-	    }
-		
-		inputStream.close();
-		
+		Scanner inputStream4=null;
 		try {
-            inputStream = new Scanner(new FileInputStream("교양.txt"));
+            inputStream4 = new Scanner(new FileInputStream("교양.txt"));
+    		sum=0;
+    		
+    		while (inputStream4.hasNextInt()) {
+    			next = inputStream4.nextInt( );
+    			refinegrade+=next;
+    	    }
+    		
+    		inputStream4.close();
         }
         catch(FileNotFoundException e)
         {
@@ -301,14 +328,7 @@ public class CompleteList {
             System.exit(0);
         }
 
-		sum=0;
-		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			refinegrade+=next;
-	    }
-		
-		inputStream.close();
+
 		
 		majorgrade=basicrefine+majorbase+enginmajor;
 		totalgrade=majorgrade+refinegrade;
@@ -340,18 +360,18 @@ public class CompleteList {
 		System.out.println("교과구분");			
 		checktake=cg.checktake;
 		checktake = keyboard2.nextLine();
-
+	
 		System.out.println("과목명");
 		coursename=ci.coursename;
-		coursename = keyboard.nextLine();
+		coursename = keyboard2.nextLine();
 		
 		System.out.println("과목코드");
 		coursecode=ci.coursecode;
-		coursecode = keyboard.nextLine();
+		coursecode = keyboard2.nextLine();
 		
 		System.out.println("학점");
 		grade=ci.grade;
-		grade = keyboard.nextLine();
+		grade = keyboard2.nextLine();
 		
 		System.out.println("점수");
 		Scanner keyboard3=new Scanner(System.in);
@@ -363,6 +383,7 @@ public class CompleteList {
         try  {
         	PrintWriter outputStream = new PrintWriter(new FileWriter("inputcourse.txt", true));
         	outputStream.print(yearsemester+" "+ checktake+" "+score+" "+coursename + " " + coursecode + " " + grade);
+        	outputStream.println(" ");
         	outputStream.close();
         }
         catch(FileNotFoundException e) {
@@ -378,22 +399,32 @@ public class CompleteList {
 
 
 
-	public void delcourse() throws IOException {
+	public void delcourse() {
 		
-		
-		BufferedReader br = new BufferedReader(new FileReader("inputcourse.txt"));
 		String line=null;
 		String []arr=new String[1000000];
 		int count=0;
 		int del_line;
-		while((line=br.readLine())!=null) {
-			arr[count]=line;
-			count++;
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader("inputcourse.txt"));
+			while((line=br.readLine())!=null) {
+				arr[count]=line;
+				count++;
+			}
+			
+			
+			
+			br.close();
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		
-		
-		br.close();
 		
 		File file=new File("inputcourse.txt");
 		file.delete();
@@ -418,7 +449,10 @@ public class CompleteList {
 		catch(FileNotFoundException e) {
             System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
-        }
+        } catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 		
 
 	}
