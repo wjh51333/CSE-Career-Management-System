@@ -48,6 +48,11 @@ public class Subject
 		this.essential = essential;
 	}
 	
+	@Override
+	public String toString() {
+		return semester + " " + school_year + " " + subject_name + " " + subject_code + " " + grade_point + " " + essential;
+	}
+	
 	public int checkIfRequired()
 	{
 		if(essential == 1)
