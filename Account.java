@@ -1,5 +1,4 @@
-//package Teamproj;
-
+package Account;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,10 +8,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Account {
+import participant.Administrator;
+import participant.Student;
+
+
+public class account {
 	private String userName;
 	private String passWord;
-	private int login_status=0; // �α��� ����
+	private int login_status=0; // 로그인 상태
 	
 	public void setLogin_status(int status){
 		this.login_status = status;
@@ -20,10 +23,18 @@ public class Account {
 	public int getLogin_status() {
 		return login_status;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String name) {
+		this.userName = name;
+	}
 	
 	public static void main(String[] args) {
-		//makeAccount("test","test1");
-		findUsername("���");
+		//makeAccount("test2","test2");
+		//findUsername("대용");
+		//account a = new account();
+		//a.findPassword("test2","유대용","2015");
 	}
 	
 	public void logIn(String Id, String Password) {
@@ -32,14 +43,14 @@ public class Account {
 		String[] fileList = accountDir.list();
 		int exist=0;
 		
-		for(int i=0; i < fileList.length; i++) { //�̸� �ߺ� Ȯ��
+		for(int i=0; i < fileList.length; i++) { //이름 중복 확인
 			if(fileList[i].equals(Id)) {
 				exist=1;
 				break;
 			}
 		}
 		
-		if(exist == 1) { // id�� �����Ҷ�
+		if(exist == 1) { // id가 존재할때
 			BufferedReader bf;
 			try {
 				bf = new BufferedReader(new FileReader("./account/"+Id));
@@ -56,14 +67,16 @@ public class Account {
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
 			} catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
 			}
 			
 			
 		}
 		else {
-			//id�� �������� ���� ��
+			//id가 존재하지 않을 때
 			System.out.println("no id exist");
 		}
 		
@@ -75,25 +88,25 @@ public class Account {
 		
 		String participantpath = "./participant/";
 		
-		String pName; //����
-		String pNumber; //�й� or ��������ȣ
-		String pMajor; //�а�
-		String pTrack; //Ʈ��
-		int pCountry; //����
+		String pName; //성명
+		String pNumber; //학번 or 교직원번호
+		String pMajor; //학과
+		String pTrack; //트랙
+		int pCountry; //국적
 		
 		int exist=0;
 		
-		for(int i=0; i < fileList.length; i++) { //�̸� �ߺ� Ȯ��
+		for(int i=0; i < fileList.length; i++) { //이름 중복 확인
 			if(fileList[i].equals(id)) {
 				exist=1;
 				break;
 			}
 		}
 		
-		if(exist == 1) { //id�� �ߺ� �����Ҷ�
+		if(exist == 1) { //id가 중복 존재할때
 			System.out.print("Already exist name");
 		}
-		else { //id ���簡 ������
+		else { //id 존재가 없을때
 			BufferedWriter accountfile;
 			try {
 				accountfile = new 
@@ -135,7 +148,7 @@ public class Account {
 					job.close();
 					
 				}
-				else { //false�� ������
+				else { //false는 교직원
 					System.out.println("name number");
 					Scanner scanner = new Scanner(System.in);
 					pName = scanner.nextLine();
@@ -158,6 +171,7 @@ public class Account {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
 			}
 		}
 	}
@@ -168,8 +182,8 @@ public class Account {
 		setLogin_status(0);
 	}
 	public static void findUsername(String name) {
-		/* �̸��� ���� �˻��ؼ�
-		 * id�� ������
+		/* 이름을 통해 검색해서
+		 * id를 보여줌
 		*/
 		String path = "./participant/";
 		File participantDir = new File(path);
@@ -182,7 +196,7 @@ public class Account {
 		
 		for(int i=0; i < fileList.length; i++) { //
 			try {
-				bf = new BufferedReader(new FileReader("./participant/"+fileList[i]));
+				bf = new BufferedReader(new FileReader(path+fileList[i]));
 				if((searchName = bf.readLine()).equals(name)) {
 					searchName = fileList[i];
 					exist =1;
@@ -191,8 +205,10 @@ public class Account {
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
 			} catch(IOException e) {
 				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
 			}
 		}
 		if(exist == 1) {
@@ -202,11 +218,78 @@ public class Account {
 			System.out.println("no id in System.");
 		}
 	}
-	public void findPassword(String name) {
-		/* ���� ���̵� ���ؼ�
-		 * pw �� ������
+	public void findPassword(String Id, String name,String num) { //아이디, 이름,학번 
+		/* 유저 이름, 학번을 통해서
+		 * pw 를 보여줌
 		 */
+		String Ppath = "./participant/";
+		File participantDir = new File(Ppath);
+		String[] PartiList = participantDir.list();
+		
+		String Apath = "./account/";
+		File accountDir = new File(Apath);
+		String[] AccList = accountDir.list();
+		
+		BufferedReader partiBf;
+		BufferedReader accBf;
+		
+		String searchName = null;
+		String searchNum = null;
+		String findNum = null;
+		int exist_id = 0;
+		int exist_name = 0;
+		int exist_num = 0;
+		int parti,ac;
+		
+		for(ac=0; ac < AccList.length;ac++) {
+			try { 
+				accBf = new BufferedReader(new FileReader(Apath+AccList[ac]));
+				if(AccList[ac].equals(Id)) {
+					findNum = accBf.readLine();
+					exist_id = 1; //아이디를 찾았다.
+					searchName = Id;
+					break;
+				}
+			}catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
+			} catch(IOException e) {
+				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
+			}
+			
+		}
+		
+		for(int i=0; i < PartiList.length; i++) { //
+			try {
+				partiBf = new BufferedReader(new FileReader(Ppath+PartiList[i]));
+				if((searchName = partiBf.readLine()).equals(name)) {
+					searchName = PartiList[i];
+					exist_name =1;
+					if((searchNum = partiBf.readLine()).equals(num)) {
+						exist_num =1;
+						break;
+					}
+					break; 
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
+			} catch(IOException e) {
+				e.printStackTrace();
+				System.out.println("오류 발생! 관리자에게 문의해주세요");
+			}
+		}
+		if(exist_id != 1) {
+			System.out.println("id가 존재하지 않습니다!");
+		}
+		else if((exist_id == 1) && (exist_name == 1) && (exist_num == 1)) {
+			System.out.println("Id : "+ Id + " Pw : "+findNum);
+		}
+		else {
+			System.out.println("아이디 혹은 비밀번호가 틀렸습니다!");
+		}
 	}
-	
-
 }
