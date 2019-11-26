@@ -14,7 +14,6 @@ import participant.Student;
 
 public class account {
 	private String userName;
-	private String passWord;
 	private int login_status=0; // 로그인 상태
 	
 	public void setLogin_status(int status){
@@ -23,6 +22,7 @@ public class account {
 	public int getLogin_status() {
 		return login_status;
 	}
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -31,10 +31,11 @@ public class account {
 	}
 	
 	public static void main(String[] args) {
-		//makeAccount("test2","test2");
-		//findUsername("대용");
-		//account a = new account();
-		//a.findPassword("test2","유대용","2015");
+		account a = new account();
+		//a.logIn("tes231", "test2");
+		//a.makeAccount("testtest","test2");
+		//a.findUsername("유대용");
+		a.findPassword("testtest","유대용","2015");
 	}
 	
 	public void logIn(String Id, String Password) {
@@ -43,7 +44,7 @@ public class account {
 		String[] fileList = accountDir.list();
 		int exist=0;
 		
-		for(int i=0; i < fileList.length; i++) { //이름 중복 확인
+		for(int i=0; i < fileList.length; i++) { //id존재여부 확인
 			if(fileList[i].equals(Id)) {
 				exist=1;
 				break;
@@ -55,13 +56,16 @@ public class account {
 			try {
 				bf = new BufferedReader(new FileReader("./account/"+Id));
 				String rightpw = bf.readLine();
-				if(Password == rightpw) {
+				if(Password.equals(rightpw)) {
 					// id == ps
 					login_status =1;
+					account a = new account();
+					a.setUserName(Id);
+					System.out.println("로그인 성공!");
 				}
 				else {
 					// id != ps
-					System.out.println("id != pw");
+					System.out.println("아이디 패스워드 불일치!");
 				}
 			
 			} catch (FileNotFoundException e) {
@@ -77,11 +81,11 @@ public class account {
 		}
 		else {
 			//id가 존재하지 않을 때
-			System.out.println("no id exist");
+			System.out.println("존재하지 않는 아이디입니다!");
 		}
 		
 	}
-	public static void makeAccount(String id, String password) {
+	public void makeAccount(String id, String password) {
 		String path = "./account/";
 		File accountDir = new File(path);
 		String[] fileList = accountDir.list();
@@ -124,15 +128,11 @@ public class account {
 					pMajor = scanner.next();
 					pTrack = scanner.next();
 					pCountry = scanner.nextInt();
-					Student stu = new Student();
-					stu.setName(pName);
-					stu.setStudentNum(pNumber);
-					stu.setMajor(pMajor);
-					stu.setTrack(pTrack);
-					stu.setCountry(pCountry);
 					
+					File Folder = new File(participantpath + id);
+					Folder.mkdir();
 					BufferedWriter stufile;
-					stufile = new BufferedWriter(new FileWriter(participantpath+id,true));
+					stufile = new BufferedWriter(new FileWriter(participantpath+id+"/"+id,true));
 					stufile.write(pName);
 					stufile.write("\n");
 					stufile.write(pNumber);
@@ -141,7 +141,7 @@ public class account {
 					stufile.write("\n");
 					stufile.write(pTrack);
 					stufile.write("\n");
-					stufile.write(stu.getCountry());
+					stufile.write(pCountry);
 					
 					scanner.close();
 					stufile.close();
@@ -149,7 +149,7 @@ public class account {
 					
 				}
 				else { //false는 교직원
-					System.out.println("name number");
+					System.out.println("이름 관리자번호");
 					Scanner scanner = new Scanner(System.in);
 					pName = scanner.nextLine();
 					pNumber = scanner.nextLine();
@@ -159,7 +159,9 @@ public class account {
 					admin.setAdminNum(pNumber);
 					
 					BufferedWriter adminfile;
-					adminfile = new BufferedWriter(new FileWriter(participantpath+id,true));
+					File Folder = new File(participantpath + id);
+					Folder.mkdir();
+					adminfile = new BufferedWriter(new FileWriter(participantpath+id+"/"+id,true));
 					adminfile.write(pName);
 					adminfile.write("\n");
 					adminfile.write(pNumber);
@@ -181,7 +183,7 @@ public class account {
 	public void logOut() {
 		setLogin_status(0);
 	}
-	public static void findUsername(String name) {
+	public void findUsername(String name) {
 		/* 이름을 통해 검색해서
 		 * id를 보여줌
 		*/
@@ -196,7 +198,7 @@ public class account {
 		
 		for(int i=0; i < fileList.length; i++) { //
 			try {
-				bf = new BufferedReader(new FileReader(path+fileList[i]));
+				bf = new BufferedReader(new FileReader(path+fileList[i]+"/"+fileList[i]));
 				if((searchName = bf.readLine()).equals(name)) {
 					searchName = fileList[i];
 					exist =1;
@@ -239,12 +241,11 @@ public class account {
 		int exist_id = 0;
 		int exist_name = 0;
 		int exist_num = 0;
-		int parti,ac;
 		
-		for(ac=0; ac < AccList.length;ac++) {
+		for(int i=0; i < AccList.length;i++) {
 			try { 
-				accBf = new BufferedReader(new FileReader(Apath+AccList[ac]));
-				if(AccList[ac].equals(Id)) {
+				accBf = new BufferedReader(new FileReader(Apath+AccList[i]));
+				if(AccList[i].equals(Id)) {
 					findNum = accBf.readLine();
 					exist_id = 1; //아이디를 찾았다.
 					searchName = Id;
@@ -263,7 +264,7 @@ public class account {
 		
 		for(int i=0; i < PartiList.length; i++) { //
 			try {
-				partiBf = new BufferedReader(new FileReader(Ppath+PartiList[i]));
+				partiBf = new BufferedReader(new FileReader(Ppath+PartiList[i]+"/"+PartiList[i]));
 				if((searchName = partiBf.readLine()).equals(name)) {
 					searchName = PartiList[i];
 					exist_name =1;
@@ -288,8 +289,8 @@ public class account {
 		else if((exist_id == 1) && (exist_name == 1) && (exist_num == 1)) {
 			System.out.println("Id : "+ Id + " Pw : "+findNum);
 		}
-		else {
-			System.out.println("아이디 혹은 비밀번호가 틀렸습니다!");
+		else if((exist_name & exist_num) == 0){
+			System.out.println("이름과 학번이 일치하지 않습니다.");
 		}
 	}
 }
