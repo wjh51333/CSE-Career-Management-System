@@ -1,4 +1,4 @@
-package Take_Course;
+package TakeCourse;
 
 
 import java.io.File;
@@ -15,9 +15,27 @@ public class TakeCourse {
 
 
 	private String array[][]=new String[1000000][6];
+	public String[][] getArray() {
+		return array;
+	}
+
+	public void setArray(String[][] array) {
+		this.array = array;
+	}
+
+	public TakeCourse getTc() {
+		return tc;
+	}
+
+	public void setTc(TakeCourse tc) {
+		this.tc = tc;
+	}
+
 	TakeCourse tc= new TakeCourse();
 
 
+
+	
 	public void getCourseinfo() {
 	
         Scanner scan;
@@ -45,7 +63,7 @@ public class TakeCourse {
 
 		    
 		} catch (FileNotFoundException e) {
-			System.out.println("fail open file");
+			System.out.println("오류 발생! 관리자에게 문의해주세요");
 			System.exit(0);
 		}
  
@@ -66,14 +84,11 @@ public class TakeCourse {
 		        }
 			outputStream.close();
 		} catch (IOException e) {
-			System.out.println("fail open file");
+			System.out.println("오류 발생! 관리자에게 문의해주세요");
 			System.exit(0);
 		}
         
 
 	}
 }
-		
 	
-	
-
