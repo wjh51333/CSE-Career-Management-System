@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ABEEKgrade_graduation_requirement 
+public class ABEEK_Graduation extends Grade_Graduation
 {
 	private int basic_literacy_point; // 기본 소양 학점(1)
 	private int major_base_point; // 전공 기반 학점(2)
@@ -47,24 +47,14 @@ public class ABEEKgrade_graduation_requirement
 		this.id_range = id_range;
 	}
 	
-	public void select_id_range(int id) 
-	{
-		if(id <= 2009) // 학번이 2009학번보다 높으면
-			id_range = 1;
-		else if(id >= 2010 && id <= 2011) // 학번이 2010, 2011학번이라면
-			id_range = 2;
-		else // 학번이 2012학번보다 낮으면
-			id_range = 3;
-	}
-	
 	public void getRequirements(String Filename) // ABEEK졸업요건 가져오기
 	{	
 		try {
 			FileReader fr = new FileReader(Filename);
 			BufferedReader br = new BufferedReader(fr);
-			basic_literacy_point = Integer.getInteger(br.readLine());
-			major_base_point = Integer.getInteger(br.readLine());
-			engineering_major_point = Integer.getInteger(br.readLine());
+			basic_literacy_point = Integer.parseInt(br.readLine());
+			major_base_point = Integer.parseInt(br.readLine());
+			engineering_major_point = Integer.parseInt(br.readLine());
 			fr.close();
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -83,9 +73,9 @@ public class ABEEKgrade_graduation_requirement
 			file.delete();
 			FileWriter fw = new FileWriter(Filename);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(basic_literacy_point + "\n");
-			bw.write(major_base_point + "\n");
-			bw.write(engineering_major_point + "\n");
+			fw.write(basic_literacy_point + "\n");
+			fw.write(major_base_point + "\n");
+			fw.write(engineering_major_point + "\n");
 			fw.close();
 			bw.close();
 		} catch (IOException e) {
@@ -103,4 +93,4 @@ public class ABEEKgrade_graduation_requirement
 		else
 			engineering_major_point = new_grade_point;
 	}
-}
+} 
