@@ -1,16 +1,6 @@
 package TakeCourse;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
 //이수 목록
 //재이수 가능 판단, 점수 계산, 필수과목수강확인, 강의추가, 강의 삭제
 public class CompleteList {
