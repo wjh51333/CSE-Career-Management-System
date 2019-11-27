@@ -1,5 +1,6 @@
 package TakeCourse;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,101 +25,180 @@ public class CompleteList {
 	public int getTotalgrade() {
 		return totalgrade;
 	}
+
+
+
 	public void setTotalgrade(int totalgrade) {
 		this.totalgrade = totalgrade;
 	}
+
+
+
 	public int getMajorgrade() {
 		return majorgrade;
 	}
+
+
+
 	public void setMajorgrade(int majorgrade) {
 		this.majorgrade = majorgrade;
 	}
+
+
+
 	public int getRefinegrade() {
 		return refinegrade;
 	}
+
+
+
 	public void setRefinegrade(int refinegrade) {
 		this.refinegrade = refinegrade;
 	}
+
+
+
 	public int getBasicrefine() {
 		return basicrefine;
 	}
+
+
+
 	public void setBasicrefine(int basicrefine) {
 		this.basicrefine = basicrefine;
 	}
+
+
+
 	public int getMajorbase() {
 		return majorbase;
 	}
+
+
+
 	public void setMajorbase(int majorbase) {
 		this.majorbase = majorbase;
 	}
+
+
+
 	public int getEnginmajor() {
 		return enginmajor;
 	}
+
+
+
 	public void setEnginmajor(int enginmajor) {
 		this.enginmajor = enginmajor;
 	}
+
+
+
 	public int getYearsemester() {
 		return yearsemester;
 	}
+
+
+
 	public void setYearsemester(int yearsemester) {
 		this.yearsemester = yearsemester;
 	}
+
+
+
 	public String getChecktake() {
 		return checktake;
 	}
+
+
+
 	public void setChecktake(String checktake) {
 		this.checktake = checktake;
 	}
+
+
+
 	public String getScore() {
 		return score;
 	}
+
+
+
 	public void setScore(String score) {
 		this.score = score;
 	}
+
+
+
 	public String getCoursename() {
 		return coursename;
 	}
+
+
+
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
 	}
+
+
+
 	public String getCoursecode() {
 		return coursecode;
 	}
+
+
+
 	public void setCoursecode(String coursecode) {
 		this.coursecode = coursecode;
 	}
+
+
+
 	public String getGrade() {
 		return grade;
 	}
+
+
+
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 	
-	public void calgrade() {
-				 
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String filename;
+		CompleteList c=new CompleteList();
+		filename=sc.next();
+		c.calgrade(filename);
+	}
+
+
+	public void calgrade(String filename) {
+		
+		 
         int count=0, i;
         String arr[]=new String[6000000];
+        String filename2=filename.split(".txt")[0];
 		try {
-			Scanner scan = new Scanner(new FileReader(new File("inputcourse.txt")));
+			Scanner scan = new Scanner(new FileReader(new File(filename)));
 		        while(scan.hasNext()){
 		        	arr[count]=scan.next();
-		            count++;           
+		            count++;
 		        }
-		              
-			File file=new File("공학전공.txt");
-			file.delete();
-			File file2=new File("기본소양.txt");
-			file2.delete();
-			File file3=new File("전공기반.txt");
-			file3.delete();
-			File file4=new File("교양.txt");
-			file4.delete();
+		        
+				File file=new File(filename2+"공학전공.txt");
+				file.delete();
+				File file2=new File(filename2+"기본소양.txt");
+				file2.delete();
+				File file3=new File(filename2+"전공기반.txt");
+				file3.delete();
+				File file4=new File(filename2+"교양.txt");
+				file4.delete();
 				
 		        for(i=0; i<count; i++) {
 		        		if (arr[i].equals("공학전공")) {
 		        			try {
-	
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("공학전공.txt", true));
+		        				PrintWriter outputStream = new PrintWriter(new FileWriter(filename2+"공학전공.txt", true));
 		        				outputStream.println(arr[i+4]);
 		        				outputStream.close();
 		        			} catch (IOException e) {
@@ -129,7 +209,7 @@ public class CompleteList {
 		        		if (arr[i].equals("기본소양")) {
 		        			try {
 
-		        				PrintWriter outputStream2 = new PrintWriter(new FileWriter("기본소양.txt", true));
+		        				PrintWriter outputStream2 = new PrintWriter(new FileWriter(filename2+"기본소양.txt", true));
 		        				outputStream2.println(arr[i+4]);
 		        				outputStream2.close();
 		        			} catch (IOException e) {
@@ -139,7 +219,7 @@ public class CompleteList {
 		        		}
 		        		if (arr[i].equals("전공기반")) {
 		        			try {
-		        				PrintWriter outputStream3 = new PrintWriter(new FileWriter("전공기반.txt", true));
+		        				PrintWriter outputStream3 = new PrintWriter(new FileWriter(filename2+"전공기반.txt", true));
 		        				outputStream3.println(arr[i+4]);
 		        				outputStream3.close();
 		        			} catch (IOException e) {
@@ -151,7 +231,7 @@ public class CompleteList {
 		        			try {
 
 		        				
-		        				PrintWriter outputStream4 = new PrintWriter(new FileWriter("교양.txt", true));
+		        				PrintWriter outputStream4 = new PrintWriter(new FileWriter(filename2+"교양.txt", true));
 		        				outputStream4.println(arr[i+4]);
 		        				outputStream4.close();
 		        			} catch (IOException e) {
@@ -174,7 +254,7 @@ public class CompleteList {
 		int sum=0;
 		Scanner inputStream=null;
         try {
-            inputStream = new Scanner(new FileInputStream("공학전공.txt"));
+            inputStream = new Scanner(new FileInputStream(filename2+"공학전공.txt"));
 
     		sum=0;
     		while (inputStream.hasNextInt()) {
@@ -194,7 +274,7 @@ public class CompleteList {
 		
 		Scanner inputStream2=null;
 		try {
-            inputStream2 = new Scanner(new FileInputStream("전공기반.txt"));
+            inputStream2 = new Scanner(new FileInputStream(filename2+"전공기반.txt"));
     		sum=0;
     		
     		while (inputStream2.hasNextInt()) {
@@ -214,7 +294,7 @@ public class CompleteList {
 		
 		Scanner inputStream3=null;
 		try {
-            inputStream3 = new Scanner(new FileInputStream("기본소양.txt"));
+            inputStream3 = new Scanner(new FileInputStream(filename2+"기본소양.txt"));
     		sum=0;
     		
     		while (inputStream3.hasNextInt()) {
@@ -232,9 +312,9 @@ public class CompleteList {
 		
 
 		
-	Scanner inputStream4=null;
-	try {
-            inputStream4 = new Scanner(new FileInputStream("교양.txt"));
+		Scanner inputStream4=null;
+		try {
+            inputStream4 = new Scanner(new FileInputStream(filename2+"교양.txt"));
     		sum=0;
     		
     		while (inputStream4.hasNextInt()) {
@@ -249,9 +329,13 @@ public class CompleteList {
             System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
-	
+
+
+		
 		majorgrade=basicrefine+majorbase+enginmajor;
-		totalgrade=majorgrade+refinegrade;	
+		totalgrade=majorgrade+refinegrade;
+		
+		
 	}
 	
 
@@ -263,7 +347,7 @@ public class CompleteList {
 	private String coursecode;
 	private String grade;
 
-	public void addcourse() {
+	public void addcourse(String filename) {
 		
 		CourseGrade cg= new CourseGrade();
 		CourseInfo ci=new CourseInfo();
@@ -299,7 +383,7 @@ public class CompleteList {
 
 
         try  {
-        	PrintWriter outputStream = new PrintWriter(new FileWriter("inputcourse.txt", true));
+        	PrintWriter outputStream = new PrintWriter(new FileWriter(filename, true));
         	outputStream.print(yearsemester+" "+ checktake+" "+score+" "+coursename + " " + coursecode + " " + grade);
         	outputStream.println(" ");
         	outputStream.close();
@@ -317,7 +401,7 @@ public class CompleteList {
 
 
 
-	public void delcourse() {
+	public void delcourse(String filename) {
 		
 		String line=null;
 		String []arr=new String[1000000];
@@ -325,7 +409,7 @@ public class CompleteList {
 		int del_line;
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader("inputcourse.txt"));
+			br = new BufferedReader(new FileReader(filename));
 			while((line=br.readLine())!=null) {
 				arr[count]=line;
 				count++;
@@ -344,7 +428,7 @@ public class CompleteList {
 		}
 		
 		
-		File file=new File("inputcourse.txt");
+		File file=new File(filename);
 		file.delete();
 		
 		int i;
@@ -354,7 +438,7 @@ public class CompleteList {
 		del_line=sc.nextInt();
 		
 		try  {
-        	PrintWriter outputStream = new PrintWriter(new FileWriter("inputcourse.txt", true));
+        	PrintWriter outputStream = new PrintWriter(new FileWriter(filename, true));
         	for (i=0; i<del_line; i++) {
         		outputStream.println(arr[i]);
         	}
@@ -371,6 +455,9 @@ public class CompleteList {
 			
 			e.printStackTrace();
 		}
+		
 
 	}
+	
+
 }
