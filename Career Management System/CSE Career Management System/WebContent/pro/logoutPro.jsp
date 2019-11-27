@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>컴퓨터학부 학생경력관리 시스템</title>
+<title>로그아웃 처리</title>
 </head>
 <body>
-
+	<%
+ 		session.invalidate();
+ 		response.sendRedirect("../view/loginForm.jsp");
+ 	%>
 </body>
 </html>
