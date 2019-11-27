@@ -122,7 +122,7 @@ public class CompleteList {
         			d.setfile(filename2+"전공기반.txt", arr[i+4]);
         		}
         		if (arr[i].equals("교양")) {
-        			d.setfile(filename2+"교양.txt", arr[i+5]);
+        			d.setfile(filename2+"교양.txt", arr[i+4]);
         		}
         		if (arr[i]==null)
         			break;
