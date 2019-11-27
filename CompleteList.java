@@ -1,6 +1,5 @@
 package TakeCourse;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,169 +24,95 @@ public class CompleteList {
 	public int getTotalgrade() {
 		return totalgrade;
 	}
-
-
-
 	public void setTotalgrade(int totalgrade) {
 		this.totalgrade = totalgrade;
 	}
-
-
-
 	public int getMajorgrade() {
 		return majorgrade;
 	}
-
-
-
 	public void setMajorgrade(int majorgrade) {
 		this.majorgrade = majorgrade;
 	}
-
-
-
 	public int getRefinegrade() {
 		return refinegrade;
 	}
-
-
-
 	public void setRefinegrade(int refinegrade) {
 		this.refinegrade = refinegrade;
 	}
-
-
-
 	public int getBasicrefine() {
 		return basicrefine;
 	}
-
-
-
 	public void setBasicrefine(int basicrefine) {
 		this.basicrefine = basicrefine;
 	}
-
-
-
 	public int getMajorbase() {
 		return majorbase;
 	}
-
-
-
 	public void setMajorbase(int majorbase) {
 		this.majorbase = majorbase;
 	}
-
-
-
 	public int getEnginmajor() {
 		return enginmajor;
 	}
-
-
-
 	public void setEnginmajor(int enginmajor) {
 		this.enginmajor = enginmajor;
 	}
-
-
-
 	public int getYearsemester() {
 		return yearsemester;
 	}
-
-
-
 	public void setYearsemester(int yearsemester) {
 		this.yearsemester = yearsemester;
 	}
-
-
-
 	public String getChecktake() {
 		return checktake;
 	}
-
-
-
 	public void setChecktake(String checktake) {
 		this.checktake = checktake;
 	}
-
-
-
 	public String getScore() {
 		return score;
 	}
-
-
-
 	public void setScore(String score) {
 		this.score = score;
 	}
-
-
-
 	public String getCoursename() {
 		return coursename;
 	}
-
-
-
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
 	}
-
-
-
 	public String getCoursecode() {
 		return coursecode;
 	}
-
-
-
 	public void setCoursecode(String coursecode) {
 		this.coursecode = coursecode;
 	}
-
-
-
 	public String getGrade() {
 		return grade;
 	}
-
-
-
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-
-
+	
 	public void calgrade() {
-		
-		 
+				 
         int count=0, i;
         String arr[]=new String[6000000];
 		try {
 			Scanner scan = new Scanner(new FileReader(new File("inputcourse.txt")));
 		        while(scan.hasNext()){
 		        	arr[count]=scan.next();
-		            count++;
-		            
-		            
+		            count++;           
 		        }
-		        
-		        
-				File file=new File("공학전공.txt");
-				file.delete();
-				File file2=new File("기본소양.txt");
-				file2.delete();
-				File file3=new File("전공기반.txt");
-				file3.delete();
-				File file4=new File("교양.txt");
-				file4.delete();
+		              
+			File file=new File("공학전공.txt");
+			file.delete();
+			File file2=new File("기본소양.txt");
+			file2.delete();
+			File file3=new File("전공기반.txt");
+			file3.delete();
+			File file4=new File("교양.txt");
+			file4.delete();
 				
 		        for(i=0; i<count; i++) {
 		        		if (arr[i].equals("공학전공")) {
@@ -307,8 +232,8 @@ public class CompleteList {
 		
 
 		
-		Scanner inputStream4=null;
-		try {
+	Scanner inputStream4=null;
+	try {
             inputStream4 = new Scanner(new FileInputStream("교양.txt"));
     		sum=0;
     		
@@ -324,13 +249,9 @@ public class CompleteList {
             System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
-
-
-		
+	
 		majorgrade=basicrefine+majorbase+enginmajor;
-		totalgrade=majorgrade+refinegrade;
-		
-		
+		totalgrade=majorgrade+refinegrade;	
 	}
 	
 
@@ -450,9 +371,6 @@ public class CompleteList {
 			
 			e.printStackTrace();
 		}
-		
 
 	}
-	
-
 }
