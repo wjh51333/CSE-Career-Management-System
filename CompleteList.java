@@ -1,4 +1,5 @@
-package Take_Course;
+package TakeCourse;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 //이수 목록
 //재이수 가능 판단, 점수 계산, 필수과목수강확인, 강의추가, 강의 삭제
 public class CompleteList {
@@ -21,65 +21,221 @@ public class CompleteList {
 	private int majorbase;
 	private int enginmajor;
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		CompleteList cl=new CompleteList();
-		cl.calgrade();
+	
+	public int getTotalgrade() {
+		return totalgrade;
+	}
+
+
+
+	public void setTotalgrade(int totalgrade) {
+		this.totalgrade = totalgrade;
+	}
+
+
+
+	public int getMajorgrade() {
+		return majorgrade;
+	}
+
+
+
+	public void setMajorgrade(int majorgrade) {
+		this.majorgrade = majorgrade;
+	}
+
+
+
+	public int getRefinegrade() {
+		return refinegrade;
+	}
+
+
+
+	public void setRefinegrade(int refinegrade) {
+		this.refinegrade = refinegrade;
+	}
+
+
+
+	public int getBasicrefine() {
+		return basicrefine;
+	}
+
+
+
+	public void setBasicrefine(int basicrefine) {
+		this.basicrefine = basicrefine;
+	}
+
+
+
+	public int getMajorbase() {
+		return majorbase;
+	}
+
+
+
+	public void setMajorbase(int majorbase) {
+		this.majorbase = majorbase;
+	}
+
+
+
+	public int getEnginmajor() {
+		return enginmajor;
+	}
+
+
+
+	public void setEnginmajor(int enginmajor) {
+		this.enginmajor = enginmajor;
+	}
+
+
+
+	public int getYearsemester() {
+		return yearsemester;
+	}
+
+
+
+	public void setYearsemester(int yearsemester) {
+		this.yearsemester = yearsemester;
+	}
+
+
+
+	public String getChecktake() {
+		return checktake;
+	}
+
+
+
+	public void setChecktake(String checktake) {
+		this.checktake = checktake;
+	}
+
+
+
+	public String getScore() {
+		return score;
+	}
+
+
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+
+
+	public String getCoursename() {
+		return coursename;
+	}
+
+
+
+	public void setCoursename(String coursename) {
+		this.coursename = coursename;
+	}
+
+
+
+	public String getCoursecode() {
+		return coursecode;
+	}
+
+
+
+	public void setCoursecode(String coursecode) {
+		this.coursecode = coursecode;
+	}
+
+
+
+	public String getGrade() {
+		return grade;
+	}
+
+
+
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String filename;
+		CompleteList c=new CompleteList();
+		filename=sc.next();
+		c.calgrade(filename);
+	}
 
 
-	public void calgrade() {
+	public void calgrade(String filename) {
 		
 		 
         int count=0, i;
         String arr[]=new String[6000000];
+        String filename2=filename.split(".txt")[0];
 		try {
-			Scanner scan = new Scanner(new FileReader(new File("data.txt")));
+			Scanner scan = new Scanner(new FileReader(new File(filename)));
 		        while(scan.hasNext()){
 		        	arr[count]=scan.next();
 		            count++;
-		            
 		        }
 		        
+				File file=new File(filename2+"공학전공.txt");
+				file.delete();
+				File file2=new File(filename2+"기본소양.txt");
+				file2.delete();
+				File file3=new File(filename2+"전공기반.txt");
+				file3.delete();
+				File file4=new File(filename2+"교양.txt");
+				file4.delete();
+				
 		        for(i=0; i<count; i++) {
 		        		if (arr[i].equals("공학전공")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("공학전공.txt", true));
+		        				PrintWriter outputStream = new PrintWriter(new FileWriter(filename2+"공학전공.txt", true));
 		        				outputStream.println(arr[i+4]);
 		        				outputStream.close();
 		        			} catch (IOException e) {
-		        				System.out.println("fail open file");
+		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
 		        			}
 		        		}
 		        		if (arr[i].equals("기본소양")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("기본소양.txt", true));
-		        				outputStream.println(arr[i+4]);
-		        				outputStream.close();
+
+		        				PrintWriter outputStream2 = new PrintWriter(new FileWriter(filename2+"기본소양.txt", true));
+		        				outputStream2.println(arr[i+4]);
+		        				outputStream2.close();
 		        			} catch (IOException e) {
-		        				System.out.println("fail open file");
+		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
 		        			}
 		        		}
 		        		if (arr[i].equals("전공기반")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("전공기반.txt", true));
-		        				outputStream.println(arr[i+4]);
-		        				outputStream.close();
+		        				PrintWriter outputStream3 = new PrintWriter(new FileWriter(filename2+"전공기반.txt", true));
+		        				outputStream3.println(arr[i+4]);
+		        				outputStream3.close();
 		        			} catch (IOException e) {
-		        				System.out.println("fail open file");
+		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
 		        			}
 		        		}
 		        		if (arr[i].equals("교양")) {
 		        			try {
-		        				PrintWriter outputStream = new PrintWriter(new FileWriter("교양.txt", true));
-		        				outputStream.println(arr[i+4]);
-		        				outputStream.close();
+
+		        				
+		        				PrintWriter outputStream4 = new PrintWriter(new FileWriter(filename2+"교양.txt", true));
+		        				outputStream4.println(arr[i+4]);
+		        				outputStream4.close();
 		        			} catch (IOException e) {
-		        				System.out.println("fail open file");
+		        				System.out.println("오류 발생! 관리자에게 문의해주세요");
 		        				System.exit(0);
 		        			}
 		        		}
@@ -90,85 +246,91 @@ public class CompleteList {
 
 		    
 		} catch (FileNotFoundException e) {
-			System.out.println("fail open file");
+			System.out.println("오류 발생! 관리자에게 문의해주세요");
 			System.exit(0);
 		}
 		
-		
+		int next;
+		int sum=0;
 		Scanner inputStream=null;
         try {
-            inputStream = new Scanner(new FileInputStream("공학전공.txt"));
+            inputStream = new Scanner(new FileInputStream(filename2+"공학전공.txt"));
+
+    		sum=0;
+    		while (inputStream.hasNextInt()) {
+    			next = inputStream.nextInt( );
+    			enginmajor+=next;
+    	    }
+    		inputStream.close();
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Error opening the file " + "공학전공");
+            System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
 		
 	
-		int next;
-		int sum=0;
+
 		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			enginmajor+=next;
-	    }
-		
-		inputStream.close();
-		
+		Scanner inputStream2=null;
 		try {
-            inputStream = new Scanner(new FileInputStream("전공기반.txt"));
+            inputStream2 = new Scanner(new FileInputStream(filename2+"전공기반.txt"));
+    		sum=0;
+    		
+    		while (inputStream2.hasNextInt()) {
+    			next = inputStream2.nextInt( );
+    			majorbase+=next;
+    	    }
+    		
+    		inputStream2.close();
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Error opening the file " + "전공기반");
+            System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
 		
-		sum=0;
+
 		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			majorbase+=next;
-	    }
-		
-		inputStream.close();
-		
+		Scanner inputStream3=null;
 		try {
-            inputStream = new Scanner(new FileInputStream("기본소양.txt"));
+            inputStream3 = new Scanner(new FileInputStream(filename2+"기본소양.txt"));
+    		sum=0;
+    		
+    		while (inputStream3.hasNextInt()) {
+    			next = inputStream3.nextInt( );
+    			basicrefine+=next;
+    	    }
+    		
+    		inputStream3.close();
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Error opening the file " + "기본소양");
+            System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
 		
-		sum=0;
+
 		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			basicrefine+=next;
-	    }
-		
-		inputStream.close();
-		
+		Scanner inputStream4=null;
 		try {
-            inputStream = new Scanner(new FileInputStream("교양.txt"));
+            inputStream4 = new Scanner(new FileInputStream(filename2+"교양.txt"));
+    		sum=0;
+    		
+    		while (inputStream4.hasNextInt()) {
+    			next = inputStream4.nextInt( );
+    			refinegrade+=next;
+    	    }
+    		
+    		inputStream4.close();
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Error opening the file " + "교양");
+            System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
 
-		sum=0;
-		
-		while (inputStream.hasNextInt()) {
-			next = inputStream.nextInt( );
-			refinegrade+=next;
-	    }
-		
-		inputStream.close();
+
 		
 		majorgrade=basicrefine+majorbase+enginmajor;
 		totalgrade=majorgrade+refinegrade;
@@ -185,7 +347,7 @@ public class CompleteList {
 	private String coursecode;
 	private String grade;
 
-	public void addcourse() {
+	public void addcourse(String filename) {
 		
 		CourseGrade cg= new CourseGrade();
 		CourseInfo ci=new CourseInfo();
@@ -200,18 +362,18 @@ public class CompleteList {
 		System.out.println("교과구분");			
 		checktake=cg.checktake;
 		checktake = keyboard2.nextLine();
-
+	
 		System.out.println("과목명");
 		coursename=ci.coursename;
-		coursename = keyboard.nextLine();
+		coursename = keyboard2.nextLine();
 		
 		System.out.println("과목코드");
 		coursecode=ci.coursecode;
-		coursecode = keyboard.nextLine();
+		coursecode = keyboard2.nextLine();
 		
 		System.out.println("학점");
 		grade=ci.grade;
-		grade = keyboard.nextLine();
+		grade = keyboard2.nextLine();
 		
 		System.out.println("점수");
 		Scanner keyboard3=new Scanner(System.in);
@@ -221,23 +383,81 @@ public class CompleteList {
 
 
         try  {
-        	PrintWriter outputStream = new PrintWriter(new FileWriter("inputcourse.txt", true));
+        	PrintWriter outputStream = new PrintWriter(new FileWriter(filename, true));
         	outputStream.print(yearsemester+" "+ checktake+" "+score+" "+coursename + " " + coursecode + " " + grade);
+        	outputStream.println(" ");
         	outputStream.close();
         }
         catch(FileNotFoundException e) {
-            System.out.println("Error opening the file " + "inputcourse");
+            System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
         }
         catch (IOException e) {
-        	System.out.println("Error opening the file " + "inputcourse");
+        	System.out.println("오류 발생! 관리자에게 문의해주세요");
             System.exit(0);
 		}
 	}
 	
-	public void delcourse() {
+
+
+
+	public void delcourse(String filename) {
+		
+		String line=null;
+		String []arr=new String[1000000];
+		int count=0;
+		int del_line;
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(filename));
+			while((line=br.readLine())!=null) {
+				arr[count]=line;
+				count++;
+			}
+			
+			
+			
+			br.close();
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
+		File file=new File(filename);
+		file.delete();
+		
+		int i;
+
+		Scanner sc=new Scanner(System.in);
+		System.out.println("삭제할 행 번호는? ");
+		del_line=sc.nextInt();
+		
+		try  {
+        	PrintWriter outputStream = new PrintWriter(new FileWriter(filename, true));
+        	for (i=0; i<del_line; i++) {
+        		outputStream.println(arr[i]);
+        	}
+        	for(i=del_line+1; i<count; i++) {
+        		outputStream.println(arr[i]);
+        	}
+        	outputStream.close();
+        }
+		
+		catch(FileNotFoundException e) {
+            System.out.println("오류 발생! 관리자에게 문의해주세요");
+            System.exit(0);
+        } catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+
 	}
+	
 
 }

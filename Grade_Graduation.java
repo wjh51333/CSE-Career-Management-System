@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Grade_graduation_requirement 
+public class Grade_Graduation 
 {
 	private int total_grade_point; // 총 이수학점
 	private int id_range; // 학번 범위
@@ -50,15 +50,14 @@ public class Grade_graduation_requirement
 			id_range = 3;
 	}
 	
-	
 	public void getRequirements(String Filename) // ABEEK졸업요건 가져오기
 	{	
 		try {
 			FileReader fr = new FileReader(Filename);
 			BufferedReader br = new BufferedReader(fr);
-			total_grade_point = Integer.getInteger(br.readLine());
-			major_grade_point = Integer.getInteger(br.readLine());
-			liberalart_grade_point = Integer.getInteger(br.readLine());
+			total_grade_point = Integer.parseInt(br.readLine());
+			major_grade_point = Integer.parseInt(br.readLine());
+			liberalart_grade_point = Integer.parseInt(br.readLine());
 			fr.close();
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -70,16 +69,16 @@ public class Grade_graduation_requirement
 		}	
 	}
 	
-	public void store_ABEEK_graduation_requirement(String Filename) // ABEEK졸업요건 수정하기
+	public void store_grade_graduation_requirement(String Filename) // ABEEK졸업요건 수정하기
 	{
 		try {
 			File file = new File(Filename);
 			file.delete();
 			FileWriter fw = new FileWriter(Filename);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(total_grade_point + "\n");
-			bw.write(major_grade_point + "\n");
-			bw.write(liberalart_grade_point + "\n");
+			fw.write(total_grade_point + "\n");
+			fw.write(major_grade_point + "\n");
+			fw.write(liberalart_grade_point + "\n");
 			fw.close();
 			bw.close();
 		} catch (IOException e) {
@@ -88,7 +87,7 @@ public class Grade_graduation_requirement
 		}
 	}
 	
-	public void modified_ABEEK_graduation_requirement(int selection, int new_grade_point) // ABEEK졸업요건 수정하기
+	public void modified_grade_graduation_requirement(int selection, int new_grade_point) // ABEEK졸업요건 수정하기
 	{
 		if(selection == 1)
 			total_grade_point = new_grade_point;

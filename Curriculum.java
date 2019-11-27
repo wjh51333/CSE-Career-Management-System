@@ -23,36 +23,27 @@ public class Curriculum
 	public void setCourse(ArrayList<Subject> course) {
 		this.course = course;
 	}
-
-	public void addCurriculum(Subject subject) // subject를 얻어와서 list를 만든다.
-	{
-		course.add(subject);
-	}
-	
-	public void deleteCurriculum(Subject subject) // 해당 subject를 제거한다.
-	{
-		course.remove(subject);
-	}
 	
 	public void getRequiredCourses(String Filename)
 	{
 		String str;
 		String [] stringarr;
-		Subject new_subject = new Subject();
 		
 		try {
 			FileReader fr = new FileReader(Filename);
 			BufferedReader br = new BufferedReader(fr);
 			while((str = br.readLine()) != null)
 			{
+				Subject new_subject = new Subject();
+				
 				stringarr = str.split(" ");
 				
-				new_subject.setSemester(Integer.getInteger(stringarr[0]));
-				new_subject.setSchool_year(Integer.getInteger(stringarr[1]));
+				new_subject.setSemester(Integer.parseInt(stringarr[0]));
+				new_subject.setSchool_year(Integer.parseInt(stringarr[1]));
 				new_subject.setSubject_name(stringarr[2]);
 				new_subject.setSubject_code(stringarr[3]);
-				new_subject.setGrade_point(Integer.getInteger(stringarr[4]));
-				new_subject.setEssential(Integer.getInteger(stringarr[5]));
+				new_subject.setGrade_point(Integer.parseInt(stringarr[4]));
+				new_subject.setEssential(Integer.parseInt(stringarr[5]));
 				
 				course.add(new_subject);
 			}
@@ -74,7 +65,7 @@ public class Curriculum
 			BufferedWriter bw = new BufferedWriter(fw);
 			for(Subject s : course)
 			{
-				bw.write(s.getSemester() + " " + s.getSchool_year() + " " + s.getSubject_name() + " " + s.getSubject_code() + " " + s.getGrade_point() + " " + s.getEssential());
+				fw.write(s.toString() + "\n");
 			}
 			fw.close();
 			bw.close();

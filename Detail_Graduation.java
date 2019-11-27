@@ -14,7 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Detailed_graduation_Requirement 
+public class Detail_Graduation 
 {
 	private int topcit; // TOPCIT 응시 여부
 	private int English_test; // 공인 영어 시험 응시 여부
@@ -105,7 +105,7 @@ public class Detailed_graduation_Requirement
 				while((str = br.readLine()) != null)
 				{
 					stringarray = str.split(" ");
-					detailList.put(stringarray[0], Integer.getInteger(stringarray[1]));
+					detailList.put(stringarray[0], Integer.parseInt(stringarray[1]));
 				}
 				fr.close();
 				br.close();
