@@ -1,11 +1,11 @@
-package Account;
+package participant;
 
 public class Student {
-	private String name; //성명
-	private String studentNum; //학번
-	private String major; //학과
-	private String track; //트랙
-	private int country; //국적 1한국, 0다른나라
+	private String name; //����
+	private String studentNum; //�й�
+	private String major; //�а�
+	private String track; //Ʈ��
+	private int country; //���� 1�ѱ�, 0�ٸ�����
 	private String job = "Student";
 	
 	//get set

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "account.Account" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,23 +15,21 @@
 	String pw = request.getParameter("pw");
 	
 	// 아이디, 비밀번호 확인
-	//MemberDAO dao = MemberDAO.getInstance();
-	//int check = dao.loginCheck(id, pw);
-	int check = 1;
+	Account acnt = new Account();
+	int check = acnt.logIn(id, pw);
 	
 	String msg = "";
 	
-	if (check == 1) {
+	if (check == 0) { // 학생 로그인
 		session.setAttribute("sessionID", id);
-		
 		// 학생인지 관리자인지 판단 후 페이지 띄워주기
 		msg = "../view/studentMain.jsp";
+	}
+	else if (check == 1) { // 관리자 로그인
+		session.setAttribute("sessionID", id);
 		msg = "../view/adminMain.jsp";
 	}
-	else if (check == 0) { // 비밀번호가 틀릴 경우
-		msg = "../view/loginForm.jsp?msg=0";
-	}
-	else { // 아이디가 틀릴 경우
+	else { // 로그인 실패
 		msg = "../view/loginForm.jsp?msg=-1";
 	}
 	

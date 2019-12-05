@@ -1,13 +1,13 @@
-package Account;
+package participant;
 
-public class Administrator {
+import account.Account;
+
+public class Administrator 
+{
 	private String name;
 	private String adminNum;
 	private String job = "Admin";
 	
-	public void getAdminInfo() {
-		
-	}
 	public String getJob() {
 		return job;
 	}
@@ -24,5 +24,5 @@ public class Administrator {
 	public void setAdminNum(String adminNum) {
 		this.adminNum = adminNum;
 	}
-	//get set	
+	//get set
 }

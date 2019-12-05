@@ -1,4 +1,4 @@
-package Account;
+package account;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,202 +9,155 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import account.MemberBean;
+import participant.Administrator;
+import participant.Student;
+
 public class Account {
-	private String userName;
-	private String passWord;
-	private int login_status=0; // 로그인 상태
-	
-	public void setLogin_status(int status){
-		this.login_status = status;
-	}
-	public int getLogin_status() {
-		return login_status;
-	}
-	
-	public static void main(String[] args) {
-		//makeAccount("test","test1");
-		findUsername("대용");
-	}
-	
-	public void logIn(String Id, String Password) {
-		String path = "./account/";
-		File accountDir = new File(path);
-		String[] fileList = accountDir.list();
-		int exist=0;
-		
-		for(int i=0; i < fileList.length; i++) { //이름 중복 확인
-			if(fileList[i].equals(Id)) {
-				exist=1;
-				break;
-			}
-		}
-		
-		if(exist == 1) { // id가 존재할때
-			BufferedReader bf;
-			try {
-				bf = new BufferedReader(new FileReader("./account/"+Id));
-				String rightpw = bf.readLine();
-				if(Password == rightpw) {
-					// id == ps
-					login_status =1;
-				}
-				else {
-					// id != ps
-					System.out.println("id != pw");
-				}
-			
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			
-		}
-		else {
-			//id가 존재하지 않을 때
-			System.out.println("no id exist");
-		}
-		
-	}
-	public static void makeAccount(String id, String password) {
-		String path = "./account/";
-		File accountDir = new File(path);
-		String[] fileList = accountDir.list();
-		
-		String participantpath = "./participant/";
-		
-		String pName; //성명
-		String pNumber; //학번 or 교직원번호
-		String pMajor; //학과
-		String pTrack; //트랙
-		int pCountry; //국적
-		
-		int exist=0;
-		
-		for(int i=0; i < fileList.length; i++) { //이름 중복 확인
-			if(fileList[i].equals(id)) {
-				exist=1;
-				break;
-			}
-		}
-		
-		if(exist == 1) { //id가 중복 존재할때
-			System.out.print("Already exist name");
-		}
-		else { //id 존재가 없을때
-			BufferedWriter accountfile;
-			try {
-				accountfile = new 
-						BufferedWriter(new FileWriter(path+id,true));
-				accountfile.write(password);
-				accountfile.close();
-				System.out.println("student or admin");
-				Scanner job = new Scanner(System.in);
-				String jobname = job.nextLine();
-				if(jobname.equals("student")) { // 
-					System.out.println("name number major track country(1:korea /0:not korea)");
-					Scanner scanner = new Scanner(System.in);
-					pName = scanner.next();
-					pNumber = scanner.next();
-					pMajor = scanner.next();
-					pTrack = scanner.next();
-					pCountry = scanner.nextInt();
-					Student stu = new Student();
-					stu.setName(pName);
-					stu.setStudentNum(pNumber);
-					stu.setMajor(pMajor);
-					stu.setTrack(pTrack);
-					stu.setCountry(pCountry);
-					
-					BufferedWriter stufile;
-					stufile = new BufferedWriter(new FileWriter(participantpath+id,true));
-					stufile.write(pName);
-					stufile.write("\n");
-					stufile.write(pNumber);
-					stufile.write("\n");
-					stufile.write(pMajor);
-					stufile.write("\n");
-					stufile.write(pTrack);
-					stufile.write("\n");
-					stufile.write(stu.getCountry());
-					
-					scanner.close();
-					stufile.close();
-					job.close();
-					
-				}
-				else { //false는 교직원
-					System.out.println("name number");
-					Scanner scanner = new Scanner(System.in);
-					pName = scanner.nextLine();
-					pNumber = scanner.nextLine();
-					Administrator admin = new Administrator();
-					
-					admin.setName(pName);
-					admin.setAdminNum(pNumber);
-					
-					BufferedWriter adminfile;
-					adminfile = new BufferedWriter(new FileWriter(participantpath+id,true));
-					adminfile.write(pName);
-					adminfile.write("\n");
-					adminfile.write(pNumber);
-					
-					adminfile.close();
-					scanner.close();
-					job.close();
-				}		
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	public int confirmLogin() {
-		return getLogin_status();
-	}
-	public void logOut() {
-		setLogin_status(0);
-	}
-	public static void findUsername(String name) {
-		/* 이름을 통해 검색해서
-		 * id를 보여줌
-		*/
-		String path = "./participant/";
-		File participantDir = new File(path);
-		String[] fileList = participantDir.list();
-		BufferedReader bf;
-		String searchName = null;
-		int exist = 0;
-		
-		
-		
-		for(int i=0; i < fileList.length; i++) { //
-			try {
-				bf = new BufferedReader(new FileReader("./participant/"+fileList[i]));
-				if((searchName = bf.readLine()).equals(name)) {
-					searchName = fileList[i];
-					exist =1;
-					break; 
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if(exist == 1) {
-			System.out.println("id : " + searchName);
-		}
-		else {
-			System.out.println("no id in System.");
-		}
-	}
-	public void findPassword(String name) {
-		/* 유저 아이디를 통해서
-		 * pw 를 보여줌
-		 */
-	}
+   private String userName;
+   private int login_status=0; // �α��� ����
+   private participant.Student student = new participant.Student();
+   private participant.Administrator Administrator = new participant.Administrator();
+   
+   public void setLogin_status(int status){
+      this.login_status = status;
+   }
+   public int getLogin_status() {
+      return login_status;
+   }
+   
+   public String getUserName() {
+      return userName;
+   }
+   public void setUserName(String name) {
+      this.userName = name;
+   }
+   
+   public int logIn(String Id, String Password) {
+      int exist=0;
+      int login_job =2;
+      
+      Data data = new Data();
+      exist = data.findId(Id);
+      String job=null;
+      
+      if(exist == 1) {
+         setLogin_status(data.equalIdPw(Id, Password));
+         if(getLogin_status() == 1) {
+            job = data.getJob(Id);
+            if(job.equals("student"))
+               login_job = 0;
+            else {
+               login_job = 1;
+            }
+            setUserName(Id);
+            
+            System.out.println("로그인 성공!");   
+         }
+         else
+            System.out.println("아이디와 비밀번호가 일치하지 않습니다!");
+      }
+      else {
+         System.out.println("존재하지 않는 아이디입니다!");
+      }
+      return login_job;
+      
+   }
+   public void makeAccount(MemberBean mBean) {
+      Data data = new Data();
+      int exist = data.findId(mBean.getId());
+      String chooseJob =null;
+      if(exist == 1) {
+         System.out.print("아이디가 이미 존재합니다.");
+      }
+      else {
+    	  String id = mBean.getId();
+    	  String password = mBean.getPw();
+    	  String type = mBean.getType();
+    	  String name = mBean.getName();
+    	  String idNum = mBean.getIdNum();
+    	  
+    	  data.joinAccount(id, password, type);
+    	  //chooseJob = data.getJob(id);
+    	  //Scanner scanner = new Scanner(System.in);
+    	  if(type.equals("student")) { // 
+    		  String major = mBean.getMajor();
+    		  String track = mBean.getTrack();
+    		  int country = 1;
+    		  
+    		  System.out.println("이름 학번 학과 트랙 국적(한국:1 / 한국X:0)");
+    		  Student stu = new Student();
+    		  /*stu.setName(scanner.next());
+    		  stu.setStudentNum(scanner.next());
+    		  stu.setMajor(scanner.next());
+    		  stu.setTrack(scanner.next());
+    		  stu.setCountry(scanner.nextInt());*/
+    		  
+    		  stu.setName(name);
+    		  stu.setStudentNum(idNum);
+    		  stu.setMajor(major);
+    		  stu.setTrack(track);
+    		  stu.setCountry(country);
+    		  
+    		  data.joinStudent(id, name, idNum, major, track, country);
+    		  data.Store_userspace(id);
+         }
+         else {
+        	 System.out.println("이름 교직원번호");
+        	 Administrator admin = new Administrator();
+ 
+        	 //admin.setName(scanner.next());
+        	 //admin.setAdminNum(scanner.next());
+        	 admin.setName(name);
+        	 admin.setAdminNum(idNum);
+        	 
+        	 data.joinAdmin(id, name, idNum);
+         }
+      }
+   }
+   public int confirmLogin() {
+      return getLogin_status();
+   }
+   public void logOut() {
+      setLogin_status(0);
+      setUserName("");
+   }
+   public void findUsername(String name, String number) {
+ 
+      Data data = new Data();
+      String searchName = null;
+      
+      searchName = data.findUserId(name, number);
+      if(searchName.equals(null)) {
+         System.out.println("이름과 번호에 맞는 아이디가 없습니다!");
+      }
+      else {
+         System.out.println("id : " + searchName);
+      }
+   }
+   public void findPassword(String Id, String name,String num) { //���̵�, �̸�,�й� 
+
+      Data data = new Data();
+      
+      int exist_id = 0;
+      
+      exist_id = data.findId(Id);
+      
+      if(exist_id != 1) {
+         System.out.println("id가 존재하지 않습니다!");
+      }
+      else if((exist_id ==1) && (data.findUserId(name, num)!=null) 
+            &&(data.findUserPw(Id, name, num)!=null)) {
+         System.out.println("Id : "+data.findUserId(name, num)+
+               " Pw : "+data.findUserPw(Id, name, num));
+      }
+      else if(((data.findUserId(name, num)==null) |(data.findUserPw(Id, name, num)==null))){
+         System.out.println("이름과 학번이 일치하지 않습니다.");
+      }
+   }
+   public String[] getUserInfo(String Id) { //array 2�а� 3Ʈ��
+      Data data = new Data();   
+      
+      return data.getUserData(Id);
+   }
 }
