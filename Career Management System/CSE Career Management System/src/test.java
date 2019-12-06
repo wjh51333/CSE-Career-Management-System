@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-import Account.account;
-import Track.Track;
-import Track.Graduation_Requirement.Detail_Graduation;
+import account.Account;
+import track.Track;
+import track.requirement.Detail_Graduation;
 
 public class test 
 {
@@ -10,7 +10,7 @@ public class test
 	
 	public static void main(String[] args) 
 	{
-		Account.account a = new Account.account();
+		account.Account a = new account.Account();
 		
 		int number;
 		scanner = new Scanner(System.in, "UTF-8");
@@ -91,7 +91,7 @@ public class test
 		}
 	}
 
-	private static void detail_gr(Account.account a, String filename) 
+	private static void detail_gr(Account a, String filename) 
 	{
 		Detail_Graduation g = new Detail_Graduation();
 		Track t = new Track();
@@ -148,7 +148,7 @@ public class test
 		}
 	}
 
-	private static void manage_g(Account.account a, String filename) 
+	private static void manage_g(Account a, String filename) 
 	{
 		Track t = new Track();
 		t.print_curriculum(a, filename);
@@ -162,8 +162,8 @@ public class test
 	      System.out.print("옵션을 선택하세요.(추가 : 0, 삭제 : 1, 전체보기 : 2) => ");
 	      number = scanner.nextInt();
 	      
-	      TakeCourse.Data d = new TakeCourse.Data();
-	      TakeCourse.TakeCourse t = new TakeCourse.TakeCourse();
+	      course.Data d = new course.Data();
+	      course.TakeCourse t = new course.TakeCourse();
 	      
 	      // 이수 목록 추가
 	      if(number == 0)
@@ -198,7 +198,7 @@ public class test
 
 	private static void complete_list(String filename) 
 	{
-		TakeCourse.CompleteList c = new TakeCourse.CompleteList();
+		course.CompleteList c = new course.CompleteList();
 		c.calgrade(filename);
 		
 		System.out.println("교양 : " + c.getRefinegrade());
@@ -207,7 +207,7 @@ public class test
 		System.out.println("공학전공 : " + c.getEnginmajor());
 	}
 
-	private static void log_in(Account.account a) 
+	private static void log_in(Account a) 
 	{
 		scanner = new Scanner(System.in);
 		
@@ -220,7 +220,7 @@ public class test
 		a.logIn(id, password);
 	}
 
-	private static account sign_in() 
+	private static Account sign_in() 
 	{
 		scanner = new Scanner(System.in);
 		String id, passwd, job;
@@ -232,9 +232,9 @@ public class test
 		System.out.print("job(student/administrator) : ");
 		job = scanner.next();
 		
-		Account.account a = new Account.account();
+		Account a = new Account();
 		
-		a.makeAccount(id, passwd, job);
+		//a.makeAccount(id, passwd, job);
 		
 		return a;
 	}
